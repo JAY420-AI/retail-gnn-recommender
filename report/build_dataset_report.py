@@ -68,13 +68,14 @@ para("Amazon Reviews 2023, collected by the McAuley Lab (UC San Diego) and hoste
 
 H("2. Schema")
 table(["File", "Field", "Meaning"], [
-    ("interactions CSV", "user_id", "anonymised reviewer ID (string)"),
-    ("", "parent_asin", "product ID; variants of one product share it"),
-    ("", "rating", "1.0 - 5.0 stars"),
-    ("", "timestamp", "review time, Unix milliseconds"),
-    ("metadata JSONL", "parent_asin, title", "product ID and name"),
-    ("", "categories", "list: Video Games > platform > type > ..."),
-    ("", "price", "USD, missing for many items")])
+    ("Interactions CSV", "user_id", "anonymised reviewer ID (string)"),
+    ("Interactions CSV", "parent_asin", "product ID; variants of one product share it"),
+    ("Interactions CSV", "rating", "1.0 - 5.0 stars"),
+    ("Interactions CSV", "timestamp", "review time, Unix milliseconds"),
+    ("Metadata JSONL", "parent_asin", "product ID (joins to the interactions)"),
+    ("Metadata JSONL", "title", "product name"),
+    ("Metadata JSONL", "categories", "list: Video Games > platform > type > ..."),
+    ("Metadata JSONL", "price", "USD, missing for many items")])
 para("Other metadata fields (images, description, store, details) exist but are not used by the model.")
 
 H("3. Raw data size")
@@ -107,7 +108,7 @@ para(f"Final graph (training edges only): {nu:,} customers, {ni:,} products, {le
 
 H("5. Distributions")
 ud, idg = tr.groupby("user").size(), tr.groupby("item").size()
-table(["", "Mean", "Median", "Max", "Min"], [
+table(["Statistic", "Mean", "Median", "Max", "Min"], [
     ("Interactions per customer", f"{ud.mean():.1f}", int(ud.median()), int(ud.max()), int(ud.min())),
     ("Interactions per product", f"{idg.mean():.1f}", int(idg.median()), int(idg.max()), int(idg.min()))])
 top10 = idg.sort_values(ascending=False).head(max(1, ni // 100)).sum() / len(tr)
