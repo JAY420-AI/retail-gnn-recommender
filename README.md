@@ -72,6 +72,3 @@ results/, models/, data/      outputs, checkpoints, raw + processed data
 - **Reproducibility:** seed 42 (NumPy, PyTorch, subsampling, negative sampling), CPU only. A repeat of the full pipeline reproduced `metrics.csv` exactly in our run.
 - **Interpretation caution:** the report explains the MF-BPR result as overfitting from sparse per-user data; that is a hypothesis supported by the training curves, not an ablation result.
 
-## Placeholders to fill in manually
-
-Team member names, enrollment numbers, roles, guide name, department, institute, academic year: in `report/Micro_Project_Report.docx` (title/team section) and on slide 1 of `presentation/slides.pptx` (or edit the two builder scripts and rerun them).
